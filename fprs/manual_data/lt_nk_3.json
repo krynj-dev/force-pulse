@@ -1,0 +1,142 @@
+{
+  "info": {
+    "gameId": "CUSTOM-UNKNOWN-4",
+    "gameMode": "CUSTOM",
+    "map": "SUMMONERS_RIFT",
+    "gameDuration": 1737,
+    "gameEndDate": "2025-11-20",
+    "winningTeamId": 100,
+    "participants": [
+      {
+        "puuid": "",
+        "riotIdGameName": "Vailorium",
+        "championName": "Zeri",
+        "teamId": 100,
+        "kills": 12,
+        "deaths": 1,
+        "assists": 11,
+        "minionsKilled": "256",
+        "goldEarned": 14389,
+        "teamPosition": "BOTTOM",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "我对b的渴望你无法想象",
+        "championName": "Ornn",
+        "teamId": 100,
+        "kills": 3,
+        "deaths": 4,
+        "assists": 14,
+        "minionsKilled": "137",
+        "goldEarned": 9691,
+        "teamPosition": "TOP",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "UNSW的faker",
+        "championName": "Diana",
+        "teamId": 100,
+        "kills": 8,
+        "deaths": 3,
+        "assists": 12,
+        "minionsKilled": "201",
+        "goldEarned": 12615,
+        "teamPosition": "JUNGLE",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "John Smith",
+        "championName": "Ahri",
+        "teamId": 100,
+        "kills": 6,
+        "deaths": 2,
+        "assists": 10,
+        "minionsKilled": "264",
+        "goldEarned": 12418,
+        "teamPosition": "MIDDLE",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "purple",
+        "championName": "TahmKench",
+        "teamId": 100,
+        "kills": 4,
+        "deaths": 2,
+        "assists": 20,
+        "minionsKilled": "13",
+        "goldEarned": 9225,
+        "teamPosition": "UTILITY",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "FengShuiMasters",
+        "championName": "Kayle",
+        "teamId": 200,
+        "kills": 6,
+        "deaths": 8,
+        "assists": 4,
+        "minionsKilled": "219",
+        "goldEarned": 13597,
+        "teamPosition": "TOP",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Mad Mosshade",
+        "championName": "Amumu",
+        "teamId": 200,
+        "kills": 0,
+        "deaths": 7,
+        "assists": 4,
+        "minionsKilled": "136",
+        "goldEarned": 8252,
+        "teamPosition": "JUNGLE",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "ArcadeRetro",
+        "championName": "Syndra",
+        "teamId": 200,
+        "kills": 3,
+        "deaths": 3,
+        "assists": 6,
+        "minionsKilled": "248",
+        "goldEarned": 12752,
+        "teamPosition": "MIDDLE",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Moofin",
+        "championName": "Smolder",
+        "teamId": 200,
+        "kills": 2,
+        "deaths": 5,
+        "assists": 3,
+        "minionsKilled": "174",
+        "goldEarned": 9318,
+        "teamPosition": "BOTTOM",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Parabol",
+        "championName": "Nautilus",
+        "teamId": 200,
+        "kills": 1,
+        "deaths": 10,
+        "assists": 4,
+        "minionsKilled": "24",
+        "goldEarned": 6566,
+        "teamPosition": "UTILITY",
+        "win": false
+      }
+    ]
+  }
+}

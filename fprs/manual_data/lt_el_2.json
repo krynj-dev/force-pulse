@@ -1,0 +1,142 @@
+{
+  "info": {
+    "gameId": "CUSTOM-UNKNOWN-2",
+    "gameMode": "CUSTOM",
+    "map": "SUMMONERS_RIFT",
+    "gameDuration": 2938,
+    "gameEndDate": "2025-11-26",
+    "winningTeamId": 100,
+    "participants": [
+      {
+        "puuid": "",
+        "riotIdGameName": "FengShuiMasters",
+        "championName": "Zaahen",
+        "teamId": 100,
+        "kills": 14,
+        "deaths": 9,
+        "assists": 12,
+        "minionsKilled": "328",
+        "goldEarned": 24680,
+        "teamPosition": "TOP",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Mad Mosshade",
+        "championName": "Poppy",
+        "teamId": 100,
+        "kills": 3,
+        "deaths": 2,
+        "assists": 16,
+        "minionsKilled": "205",
+        "goldEarned": 14894,
+        "teamPosition": "JUNGLE",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "ArcadeRetro",
+        "championName": "Zoe",
+        "teamId": 100,
+        "kills": 9,
+        "deaths": 6,
+        "assists": 14,
+        "minionsKilled": "285",
+        "goldEarned": 18505,
+        "teamPosition": "MIDDLE",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Parabol",
+        "championName": "Varus",
+        "teamId": 100,
+        "kills": 8,
+        "deaths": 7,
+        "assists": 7,
+        "minionsKilled": "375",
+        "goldEarned": 19698,
+        "teamPosition": "BOTTOM",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Moofin",
+        "championName": "Nami",
+        "teamId": 100,
+        "kills": 1,
+        "deaths": 5,
+        "assists": 24,
+        "minionsKilled": "19",
+        "goldEarned": 11465,
+        "teamPosition": "UTILITY",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "snipa",
+        "championName": "Pantheon",
+        "teamId": 200,
+        "kills": 8,
+        "deaths": 8,
+        "assists": 9,
+        "minionsKilled": "263",
+        "goldEarned": 17873,
+        "teamPosition": "JUNGLE",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "FEV",
+        "championName": "Sett",
+        "teamId": 200,
+        "kills": 4,
+        "deaths": 9,
+        "assists": 6,
+        "minionsKilled": "284",
+        "goldEarned": 17163,
+        "teamPosition": "TOP",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "izl",
+        "championName": "Aurora",
+        "teamId": 200,
+        "kills": 12,
+        "deaths": 6,
+        "assists": 6,
+        "minionsKilled": "284",
+        "goldEarned": 20816,
+        "teamPosition": "BOTTOM",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Dia",
+        "championName": "Pyke",
+        "teamId": 200,
+        "kills": 3,
+        "deaths": 3,
+        "assists": 13,
+        "minionsKilled": "67",
+        "goldEarned": 14471,
+        "teamPosition": "UTILITY",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "TheShadowMonarch",
+        "championName": "Yone",
+        "teamId": 200,
+        "kills": 1,
+        "deaths": 9,
+        "assists": 5,
+        "minionsKilled": "351",
+        "goldEarned": 17702,
+        "teamPosition": "MIDDLE",
+        "win": false
+      }
+    ]
+  }
+}

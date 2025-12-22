@@ -1,0 +1,142 @@
+{
+  "info": {
+    "gameId": "CUSTOM-UNKNOWN-3",
+    "gameMode": "CUSTOM",
+    "map": "SUMMONERS_RIFT",
+    "gameDuration": 1729,
+    "gameEndDate": "2025-11-20",
+    "winningTeamId": 100,
+    "participants": [
+      {
+        "puuid": "",
+        "riotIdGameName": "Vailorium",
+        "championName": "Tristana",
+        "teamId": 100,
+        "kills": 8,
+        "deaths": 1,
+        "assists": 9,
+        "minionsKilled": "202",
+        "goldEarned": 14195,
+        "teamPosition": "BOTTOM",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "我对b的渴望你无法想象",
+        "championName": "Malphite",
+        "teamId": 100,
+        "kills": 4,
+        "deaths": 4,
+        "assists": 9,
+        "minionsKilled": "138",
+        "goldEarned": 9897,
+        "teamPosition": "TOP",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "UNSW的faker",
+        "championName": "Qiyana",
+        "teamId": 100,
+        "kills": 3,
+        "deaths": 4,
+        "assists": 8,
+        "minionsKilled": "207",
+        "goldEarned": 11211,
+        "teamPosition": "JUNGLE",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "John Smith",
+        "championName": "Ryze",
+        "teamId": 100,
+        "kills": 1,
+        "deaths": 1,
+        "assists": 9,
+        "minionsKilled": "206",
+        "goldEarned": 10747,
+        "teamPosition": "MIDDLE",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "purple",
+        "championName": "Poppy",
+        "teamId": 100,
+        "kills": 8,
+        "deaths": 1,
+        "assists": 9,
+        "minionsKilled": "37",
+        "goldEarned": 10132,
+        "teamPosition": "UTILITY",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "FengShuiMasters",
+        "championName": "ChoGath",
+        "teamId": 200,
+        "kills": 6,
+        "deaths": 5,
+        "assists": 1,
+        "minionsKilled": "240",
+        "goldEarned": 12486,
+        "teamPosition": "TOP",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Mad Mosshade",
+        "championName": "Gragas",
+        "teamId": 200,
+        "kills": 0,
+        "deaths": 3,
+        "assists": 3,
+        "minionsKilled": "141",
+        "goldEarned": 7878,
+        "teamPosition": "JUNGLE",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "ArcadeRetro",
+        "championName": "Cassiopeia",
+        "teamId": 200,
+        "kills": 4,
+        "deaths": 5,
+        "assists": 2,
+        "minionsKilled": "209",
+        "goldEarned": 11083,
+        "teamPosition": "MIDDLE",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Moofin",
+        "championName": "KaiSa",
+        "teamId": 200,
+        "kills": 0,
+        "deaths": 4,
+        "assists": 2,
+        "minionsKilled": "160",
+        "goldEarned": 7962,
+        "teamPosition": "BOTTOM",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Parabol",
+        "championName": "Braum",
+        "teamId": 200,
+        "kills": 1,
+        "deaths": 7,
+        "assists": 5,
+        "minionsKilled": "28",
+        "goldEarned": 6711,
+        "teamPosition": "UTILITY",
+        "win": false
+      }
+    ]
+  }
+}
