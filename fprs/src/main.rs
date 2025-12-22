@@ -1,29 +1,33 @@
-use std::{
-    fs,
-    io::{self, Write},
-    path::{Path, PathBuf},
+use color_eyre::Result;
+use crossterm::event::{self, Event, KeyCode, KeyEventKind, KeyModifiers};
+use ratatui::Terminal;
+use ratatui::crossterm::event::DisableMouseCapture;
+use ratatui::crossterm::terminal::{LeaveAlternateScreen, disable_raw_mode};
+use ratatui::prelude::{Backend, CrosstermBackend};
+use ratatui::{
+    DefaultTerminal, Frame,
+    crossterm::{
+        event::EnableMouseCapture,
+        execute,
+        terminal::{EnterAlternateScreen, enable_raw_mode},
+    },
 };
 
-use rusqlite::{Connection, Result};
+use std::{
+    error::Error,
+    io::{self, Write},
+};
 
 mod app;
+mod command;
 mod db;
 mod riot;
+mod ui;
+use app::{App, CurrentScreen};
+use ui::ui;
 
-const APP_NAME: &str = "fprs";
-
-pub struct AppState {
-    pub api_key: Option<String>,
-}
-
-impl AppState {
-    pub fn new() -> Self {
-        Self { api_key: None }
-    }
-}
-
-fn main() {
-    let mut state = AppState::new();
+fn old_main() {
+    let mut state = command::AppState::new();
 
     loop {
         print!("> ");
@@ -42,134 +46,98 @@ fn main() {
         }
 
         // Dispatch commands
-        let _ = handle_command(input, &mut state);
+        let _ = command::handle_command(input, &mut state);
     }
 }
 
-fn handle_command(cmd: &str, state: &mut AppState) -> Result<()> {
-    let db_path = app::db_path(APP_NAME);
-    match cmd {
-        "import-manual" => {
-            let conn = Connection::open(db_path)?;
-            let path = prompt_path("Path to JSON directory");
+fn main() -> Result<(), Box<dyn Error>> {
+    // setup terminal
+    enable_raw_mode()?;
+    let mut stderr = io::stderr(); // This is a special case. Normally using stdout is fine
+    execute!(stderr, EnterAlternateScreen, EnableMouseCapture)?;
+    let backend = CrosstermBackend::new(stderr);
+    let mut terminal = Terminal::new(backend)?;
 
-            if !path.is_dir() {
-                eprintln!("Not a directory: {}", path.display());
-            }
+    // create app and run it
+    let mut app = App::new();
+    let res = run_app(&mut terminal, &mut app);
 
-            match import_manual_matches(&conn, &path) {
-                Ok(count) => {
-                    println!("Imported {count} manual matches");
-                }
-                Err(e) => {
-                    eprintln!("Import failed: {e}");
-                }
-            }
-        }
-        "add-game" => {
-            let conn = Connection::open(db_path)?;
-            fetch(state, &conn);
-        }
-        "init" => match db::init_db(&db_path) {
-            Ok(_) => println!("Initialised database at {}", db_path.display()),
-            Err(e) => eprintln!("Init failed: {}", e),
-        },
-        "help" => {
-            println!("Available commands:");
-            println!("  init    Initialise app database");
-            println!("  add-game    Add a game to the tracker");
-            println!("  help");
-            println!("  quit | exit");
-        }
-        "" => {} // ignore empty input
-        _ => {
-            println!("Unknown command: {}", cmd);
-        }
-    }
+    // restore terminal
+    disable_raw_mode()?;
+    execute!(
+        terminal.backend_mut(),
+        LeaveAlternateScreen,
+        DisableMouseCapture
+    )?;
+    terminal.show_cursor()?;
+
     Ok(())
 }
 
-fn prompt(label: &str) -> String {
-    use std::io::{self, Write};
+fn run_app<B: Backend>(terminal: &mut Terminal<B>, app: &mut App) -> io::Result<bool> {
+    loop {
+        terminal.draw(|f| ui(f, app))?;
 
-    print!("{label}: ");
-    io::stdout().flush().unwrap();
-
-    let mut input = String::new();
-    io::stdin().read_line(&mut input).unwrap();
-    input.trim().to_string()
-}
-
-fn prompt_path(label: &str) -> PathBuf {
-    print!("{label}: ");
-    io::stdout().flush().unwrap();
-
-    let mut input = String::new();
-    io::stdin().read_line(&mut input).unwrap();
-    PathBuf::from(input.trim())
-}
-
-fn fetch(state: &mut AppState, conn: &Connection) {
-    let api_key = match &state.api_key {
-        Some(key) => key.clone(),
-        None => {
-            let key = prompt("Riot API key");
-            state.api_key = Some(key.clone());
-            key
-        }
-    };
-
-    let match_id = prompt("Match ID");
-    let game_id = "OC1_".to_owned() + &match_id;
-
-    let region = "sea";
-
-    match riot::fetch_match(&api_key, region, &game_id) {
-        Ok(json) => {
-            println!("Result: {}", json);
-            if let Err(e) = db::insert_game(conn, &match_id, &json) {
-                eprintln!("Failed to store game: {e}");
-            } else {
-                println!("Game retrieved!");
+        if let Event::Key(key) = event::read()? {
+            if key.kind == event::KeyEventKind::Release {
+                // Skip events that are not KeyEventKind::Press
+                continue;
+            }
+            match (key.code, key.modifiers) {
+                (KeyCode::Char('c'), KeyModifiers::CONTROL) => return Ok(true),
+                _ => {}
+            }
+            if app.show_search {
+                match key.code {
+                    KeyCode::Char(c) => {
+                        app.search_input.push(c);
+                    }
+                    KeyCode::Backspace => {
+                        app.search_input.pop();
+                    }
+                    KeyCode::Esc => {
+                        app.show_search = false;
+                        app.current_screen = app.previous_screen;
+                    }
+                    _ => {}
+                }
+                continue;
+            }
+            match app.current_screen {
+                CurrentScreen::Main => match key.code {
+                    KeyCode::Char('s') => {
+                        app.show_search = true;
+                        app.current_screen = CurrentScreen::Search;
+                    }
+                    _ => {}
+                },
+                CurrentScreen::Search if key.kind == KeyEventKind::Press => match key.code {
+                    KeyCode::Esc => {
+                        app.current_screen = CurrentScreen::Main;
+                    }
+                    _ => {}
+                },
+                _ => {}
+            }
+            match key.code {
+                KeyCode::Char('q') => {
+                    return Ok(true);
+                }
+                _ => {}
             }
         }
-        Err(e) => eprintln!("Fetch failed: {e}"),
     }
 }
 
-fn import_manual_matches(conn: &Connection, dir: &Path) -> Result<usize> {
-    conn.execute("DELETE FROM game WHERE manual = 1", [])?;
-
-    let mut inserted = 0;
-
-    for entry in fs::read_dir(dir).expect("Failed to read directory") {
-        let entry = entry.expect("Invalid directory entry");
-        let path = entry.path();
-
-        if path.extension().and_then(|s| s.to_str()) != Some("json") {
-            continue;
+fn run(mut terminal: DefaultTerminal) -> Result<()> {
+    loop {
+        terminal.draw(render)?;
+        if matches!(event::read()?, Event::Key(_)) {
+            break Ok(());
         }
-
-        if path.file_name().and_then(|s| s.to_str()) == Some("template.json") {
-            continue;
-        }
-
-        let json = fs::read_to_string(&path).expect("Failed to read JSON file");
-
-        // Optional sanity check
-        serde_json::from_str::<serde_json::Value>(&json).expect("Invalid JSON");
-
-        // 3. Insert
-        conn.execute(
-            r#"
-            INSERT INTO game (data, manual)
-            VALUES (?1, 1)
-            "#,
-            [&json],
-        )?;
-
-        inserted += 1;
     }
+}
 
-    Ok(inserted)
+fn render(frame: &mut Frame) {
+    frame.render_widget("hello world", frame.area());
 }
