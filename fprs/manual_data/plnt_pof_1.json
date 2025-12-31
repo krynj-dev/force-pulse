@@ -1,0 +1,142 @@
+{
+  "info": {
+    "gameId": "CUSTOM-UNKNOWN-6",
+    "gameMode": "CUSTOM",
+    "map": "SUMMONERS_RIFT",
+    "gameDuration": 1734,
+    "gameEndDate": "2025-11-27",
+    "winningTeamId": 200,
+    "participants": [
+      {
+        "puuid": "",
+        "riotIdGameName": "overdosedpirate",
+        "championName": "Viktor",
+        "teamId": 100,
+        "kills": 1,
+        "deaths": 4,
+        "assists": 0,
+        "minionsKilled": 240,
+        "goldEarned": 9657,
+        "teamPosition": "MIDDLE",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "GODxUSOPP",
+        "championName": "Sett",
+        "teamId": 100,
+        "kills": 3,
+        "deaths": 6,
+        "assists": 2,
+        "minionsKilled": 165,
+        "goldEarned": 8854,
+        "teamPosition": "TOP",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Pure Pazaak",
+        "championName": "Malphire",
+        "teamId": 100,
+        "kills": 2,
+        "deaths": 5,
+        "assists": 5,
+        "minionsKilled": 180,
+        "goldEarned": 10112,
+        "teamPosition": "JUNGLE",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "CHUMBA",
+        "championName": "Yunara",
+        "teamId": 100,
+        "kills": 2,
+        "deaths": 4,
+        "assists": 4,
+        "minionsKilled": 240,
+        "goldEarned": 10885,
+        "teamPosition": "BOTTOM",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Ryzuul",
+        "championName": "Milio",
+        "teamId": 100,
+        "kills": 0,
+        "deaths": 4,
+        "assists": 4,
+        "minionsKilled": 29,
+        "goldEarned": 5929,
+        "teamPosition": "UTILITY",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "quanming268",
+        "championName": "Volibear",
+        "teamId": 200,
+        "kills": 6,
+        "deaths": 4,
+        "assists": 7,
+        "minionsKilled": 221,
+        "goldEarned": 14110,
+        "teamPosition": "TOP",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "FruitfulHippo751",
+        "championName": "Darius",
+        "teamId": 200,
+        "kills": 9,
+        "deaths": 2,
+        "assists": 7,
+        "minionsKilled": 228,
+        "goldEarned": 13218,
+        "teamPosition": "JUNGLE",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "idk123",
+        "championName": "Syndra",
+        "teamId": 200,
+        "kills": 3,
+        "deaths": 1,
+        "assists": 6,
+        "minionsKilled": 272,
+        "goldEarned": 11770,
+        "teamPosition": "MIDDLE",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "aphrodite",
+        "championName": "Sivir",
+        "teamId": 200,
+        "kills": 4,
+        "deaths": 1,
+        "assists": 12,
+        "minionsKilled": 230,
+        "goldEarned": 12867,
+        "teamPosition": "BOTTOM",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Bayboy007",
+        "championName": "Rell",
+        "teamId": 200,
+        "kills": 1,
+        "deaths": 0,
+        "assists": 18,
+        "minionsKilled": 30,
+        "goldEarned": 8037,
+        "teamPosition": "UTILITY",
+        "win": true
+      }
+    ]
+  }
+}

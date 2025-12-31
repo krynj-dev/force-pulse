@@ -26,7 +26,8 @@ SELECT
       AS gpm
 FROM game m
 JOIN json_each(m.data, '$.info.participants') p
-GROUP BY name, role
+GROUP BY name
+-- , role
 HAVING games >= 4
 ORDER BY 
   kda DESC,

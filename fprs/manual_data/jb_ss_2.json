@@ -1,0 +1,142 @@
+{
+  "info": {
+    "gameId": "CUSTOM-UNKNOWN-10",
+    "gameMode": "CUSTOM",
+    "map": "SUMMONERS_RIFT",
+    "gameDuration": 2033,
+    "gameEndDate": "2025-12-15",
+    "winningTeamId": 200,
+    "participants": [
+      {
+        "puuid": "",
+        "riotIdGameName": "Beetleberries",
+        "championName": "Amumu",
+        "teamId": 100,
+        "kills": 7,
+        "deaths": 8,
+        "assists": 12,
+        "minionsKilled": 186,
+        "goldEarned": 13604,
+        "teamPosition": "JUNGLE",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Robotastic",
+        "championName": "Ornn",
+        "teamId": 100,
+        "kills": 8,
+        "deaths": 6,
+        "assists": 12,
+        "minionsKilled": 226,
+        "goldEarned": 14489,
+        "teamPosition": "TOP",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Immortep",
+        "championName": "Ahri",
+        "teamId": 100,
+        "kills": 15,
+        "deaths": 4,
+        "assists": 9,
+        "minionsKilled": 233,
+        "goldEarned": 16149,
+        "teamPosition": "MIDDLE",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "sazkim",
+        "championName": "Ashe",
+        "teamId": 100,
+        "kills": 6,
+        "deaths": 4,
+        "assists": 14,
+        "minionsKilled": 230,
+        "goldEarned": 13325,
+        "teamPosition": "BOTTOM",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "ZARBARDO",
+        "championName": "Lulu",
+        "teamId": 100,
+        "kills": 1,
+        "deaths": 6,
+        "assists": 20,
+        "minionsKilled": 32,
+        "goldEarned": 9166,
+        "teamPosition": "UTILITY",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "xXPissRigXx",
+        "championName": "ChoGath",
+        "teamId": 200,
+        "kills": 9,
+        "deaths": 10,
+        "assists": 9,
+        "minionsKilled": 154,
+        "goldEarned": 14396,
+        "teamPosition": "TOP",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Captainshark937",
+        "championName": "Zaahen",
+        "teamId": 200,
+        "kills": 9,
+        "deaths": 6,
+        "assists": 15,
+        "minionsKilled": 290,
+        "goldEarned": 18784,
+        "teamPosition": "JUNGLE",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Lucifers Angel",
+        "championName": "Viktor",
+        "teamId": 200,
+        "kills": 1,
+        "deaths": 10,
+        "assists": 13,
+        "minionsKilled": 232,
+        "goldEarned": 12042,
+        "teamPosition": "MIDDLE",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "C Rex",
+        "championName": "Jinx",
+        "teamId": 200,
+        "kills": 9,
+        "deaths": 4,
+        "assists": 4,
+        "minionsKilled": 295,
+        "goldEarned": 18018,
+        "teamPosition": "BOTTOM",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Boompow",
+        "championName": "Leona",
+        "teamId": 200,
+        "kills": 0,
+        "deaths": 7,
+        "assists": 10,
+        "minionsKilled": 35,
+        "goldEarned": 8212,
+        "teamPosition": "UTILITY",
+        "win": true
+      }
+    ]
+  }
+}

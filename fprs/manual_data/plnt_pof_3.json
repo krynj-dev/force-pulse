@@ -1,0 +1,142 @@
+{
+  "info": {
+    "gameId": "CUSTOM-UNKNOWN-8",
+    "gameMode": "CUSTOM",
+    "map": "SUMMONERS_RIFT",
+    "gameDuration": 2216,
+    "gameEndDate": "2025-11-27",
+    "winningTeamId": 100,
+    "participants": [
+      {
+        "puuid": "",
+        "riotIdGameName": "overdosedpirate",
+        "championName": "Orianna",
+        "teamId": 100,
+        "kills": 2,
+        "deaths": 1,
+        "assists": 16,
+        "minionsKilled": 276,
+        "goldEarned": 13908,
+        "teamPosition": "MIDDLE",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "GODxUSOPP",
+        "championName": "Sion",
+        "teamId": 100,
+        "kills": 5,
+        "deaths": 1,
+        "assists": 11,
+        "minionsKilled": 282,
+        "goldEarned": 15948,
+        "teamPosition": "TOP",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Pure Pazaak",
+        "championName": "Mordekaiser",
+        "teamId": 100,
+        "kills": 8,
+        "deaths": 7,
+        "assists": 10,
+        "minionsKilled": 193,
+        "goldEarned": 14306,
+        "teamPosition": "JUNGLE",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "CHUMBA",
+        "championName": "MissFortune",
+        "teamId": 100,
+        "kills": 13,
+        "deaths": 4,
+        "assists": 6,
+        "minionsKilled": 258,
+        "goldEarned": 19105,
+        "teamPosition": "BOTTOM",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Ryzuul",
+        "championName": "Alistar",
+        "teamId": 100,
+        "kills": 3,
+        "deaths": 5,
+        "assists": 24,
+        "minionsKilled": 22,
+        "goldEarned": 11200,
+        "teamPosition": "UTILITY",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "quanming268",
+        "championName": "Kled",
+        "teamId": 200,
+        "kills": 2,
+        "deaths": 6,
+        "assists": 7,
+        "minionsKilled": 275,
+        "goldEarned": 14224,
+        "teamPosition": "Top",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "FruitfulHippo751",
+        "championName": "Nunu&Willump",
+        "teamId": 200,
+        "kills": 4,
+        "deaths": 4,
+        "assists": 8,
+        "minionsKilled": 244,
+        "goldEarned": 13317,
+        "teamPosition": "JUNGLE",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "idk123",
+        "championName": "Yone",
+        "teamId": 200,
+        "kills": 3,
+        "deaths": 9,
+        "assists": 4,
+        "minionsKilled": 256,
+        "goldEarned": 12207,
+        "teamPosition": "MIDDLE",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "aphrodite",
+        "championName": "Jhin",
+        "teamId": 200,
+        "kills": 4,
+        "deaths": 4,
+        "assists": 3,
+        "minionsKilled": 270,
+        "goldEarned": 13926,
+        "teamPosition": "BOTTOM",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Bayboy007",
+        "championName": "Neeko",
+        "teamId": 200,
+        "kills": 5,
+        "deaths": 8,
+        "assists": 7,
+        "minionsKilled": 43,
+        "goldEarned": 10133,
+        "teamPosition": "UTILITY",
+        "win": false
+      }
+    ]
+  }
+}

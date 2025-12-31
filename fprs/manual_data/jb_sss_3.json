@@ -1,0 +1,142 @@
+{
+  "info": {
+    "gameId": "CUSTOM-UNKNOWN-13",
+    "gameMode": "CUSTOM",
+    "map": "SUMMONERS_RIFT",
+    "gameDuration": 2051,
+    "gameEndDate": "2025-11-22",
+    "winningTeamId": 200,
+    "participants": [
+      {
+        "puuid": "",
+        "riotIdGameName": "Beetleberries",
+        "championName": "Sion",
+        "teamId": 100,
+        "kills": 3,
+        "deaths": 8,
+        "assists": 8,
+        "minionsKilled": 172,
+        "goldEarned": 11592,
+        "teamPosition": "JUNGLE",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Robotastic",
+        "championName": "Gnar",
+        "teamId": 100,
+        "kills": 1,
+        "deaths": 5,
+        "assists": 7,
+        "minionsKilled": 179,
+        "goldEarned": 9630,
+        "teamPosition": "TOP",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Kayle Bot",
+        "championName": "Mel",
+        "teamId": 100,
+        "kills": 7,
+        "deaths": 3,
+        "assists": 2,
+        "minionsKilled": 254,
+        "goldEarned": 14079,
+        "teamPosition": "MIDDLE",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "sazkim",
+        "championName": "Jinx",
+        "teamId": 100,
+        "kills": 2,
+        "deaths": 4,
+        "assists": 6,
+        "minionsKilled": 240,
+        "goldEarned": 11405,
+        "teamPosition": "BOTTOM",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Kitto Rifu",
+        "championName": "Rakan",
+        "teamId": 100,
+        "kills": 0,
+        "deaths": 5,
+        "assists": 7,
+        "minionsKilled": 27,
+        "goldEarned": 6938,
+        "teamPosition": "UTILITY",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "felineslayer420",
+        "championName": "Aatrox",
+        "teamId": 200,
+        "kills": 3,
+        "deaths": 5,
+        "assists": 9,
+        "minionsKilled": 230,
+        "goldEarned": 12714,
+        "teamPosition": "TOP",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "freakyweaky6",
+        "championName": "Kindred",
+        "teamId": 200,
+        "kills": 10,
+        "deaths": 2,
+        "assists": 2,
+        "minionsKilled": 245,
+        "goldEarned": 15536,
+        "teamPosition": "JUNGLE",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "strokinmasih",
+        "championName": "Ziggs",
+        "teamId": 200,
+        "kills": 0,
+        "deaths": 2,
+        "assists": 8,
+        "minionsKilled": 273,
+        "goldEarned": 13892,
+        "teamPosition": "BOTTOM",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "FreakFinder",
+        "championName": "TahmKench",
+        "teamId": 200,
+        "kills": 1,
+        "deaths": 2,
+        "assists": 15,
+        "minionsKilled": 10,
+        "goldEarned": 8603,
+        "teamPosition": "UTILITY",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "FreakHound",
+        "championName": "Ahri",
+        "teamId": 200,
+        "kills": 11,
+        "deaths": 2,
+        "assists": 7,
+        "minionsKilled": 240,
+        "goldEarned": 15970,
+        "teamPosition": "MIDDLE",
+        "win": true
+      }
+    ]
+  }
+}
