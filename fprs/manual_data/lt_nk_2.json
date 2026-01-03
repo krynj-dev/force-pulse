@@ -6,6 +6,16 @@
     "gameDuration": 1729,
     "gameEndDate": "2025-11-20",
     "winningTeamId": 100,
+    "teams": [
+      {
+        "teamId": 100,
+        "win": true
+      },
+      {
+        "teamId": 200,
+        "win": false
+      }
+    ],
     "participants": [
       {
         "puuid": "",
@@ -15,7 +25,7 @@
         "kills": 8,
         "deaths": 1,
         "assists": 9,
-        "minionsKilled": "202",
+        "totalMinionsKilled": "202",
         "goldEarned": 14195,
         "teamPosition": "BOTTOM",
         "win": true
@@ -28,7 +38,7 @@
         "kills": 4,
         "deaths": 4,
         "assists": 9,
-        "minionsKilled": "138",
+        "totalMinionsKilled": "138",
         "goldEarned": 9897,
         "teamPosition": "TOP",
         "win": true
@@ -41,7 +51,7 @@
         "kills": 3,
         "deaths": 4,
         "assists": 8,
-        "minionsKilled": "207",
+        "totalMinionsKilled": "207",
         "goldEarned": 11211,
         "teamPosition": "JUNGLE",
         "win": true
@@ -54,7 +64,7 @@
         "kills": 1,
         "deaths": 1,
         "assists": 9,
-        "minionsKilled": "206",
+        "totalMinionsKilled": "206",
         "goldEarned": 10747,
         "teamPosition": "MIDDLE",
         "win": true
@@ -67,7 +77,7 @@
         "kills": 8,
         "deaths": 1,
         "assists": 9,
-        "minionsKilled": "37",
+        "totalMinionsKilled": "37",
         "goldEarned": 10132,
         "teamPosition": "UTILITY",
         "win": true
@@ -75,12 +85,12 @@
       {
         "puuid": "",
         "riotIdGameName": "FengShuiMasters",
-        "championName": "ChoGath",
+        "championName": "Chogath",
         "teamId": 200,
         "kills": 6,
         "deaths": 5,
         "assists": 1,
-        "minionsKilled": "240",
+        "totalMinionsKilled": "240",
         "goldEarned": 12486,
         "teamPosition": "TOP",
         "win": false
@@ -93,7 +103,7 @@
         "kills": 0,
         "deaths": 3,
         "assists": 3,
-        "minionsKilled": "141",
+        "totalMinionsKilled": "141",
         "goldEarned": 7878,
         "teamPosition": "JUNGLE",
         "win": false
@@ -106,7 +116,7 @@
         "kills": 4,
         "deaths": 5,
         "assists": 2,
-        "minionsKilled": "209",
+        "totalMinionsKilled": "209",
         "goldEarned": 11083,
         "teamPosition": "MIDDLE",
         "win": false
@@ -114,12 +124,12 @@
       {
         "puuid": "",
         "riotIdGameName": "Moofin",
-        "championName": "KaiSa",
+        "championName": "Kaisa",
         "teamId": 200,
         "kills": 0,
         "deaths": 4,
         "assists": 2,
-        "minionsKilled": "160",
+        "totalMinionsKilled": "160",
         "goldEarned": 7962,
         "teamPosition": "BOTTOM",
         "win": false
@@ -132,7 +142,7 @@
         "kills": 1,
         "deaths": 7,
         "assists": 5,
-        "minionsKilled": "28",
+        "totalMinionsKilled": "28",
         "goldEarned": 6711,
         "teamPosition": "UTILITY",
         "win": false

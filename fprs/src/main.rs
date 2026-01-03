@@ -26,7 +26,7 @@ mod ui;
 use app::{App, CurrentScreen};
 use ui::ui;
 
-fn main() {
+fn old_main() {
     let mut state = command::AppState::new();
 
     loop {
@@ -50,7 +50,7 @@ fn main() {
     }
 }
 
-fn new_main() -> Result<(), Box<dyn Error>> {
+fn main() -> Result<(), Box<dyn Error>> {
     // setup terminal
     enable_raw_mode()?;
     let mut stderr = io::stderr(); // This is a special case. Normally using stdout is fine

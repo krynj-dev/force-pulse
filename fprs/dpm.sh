@@ -28,18 +28,18 @@ SELECT
       ( SUM(json_extract(p.value, '$.totalMinionsKilled'))  * 1.0)/
       ( SUM(json_extract(m.data, '$.info.gameDuration')) / 60)
       , 1)
-      AS cspm
+      AS cspm,
+      SUM(json_extract(p.value ,'$.totalDamageDealtToChampions')) /
+      ( SUM(json_extract(m.data, '$.info.gameDuration')) / 60) as dpm
 FROM game m
 JOIN json_each(m.data, '$.info.participants') p
-WHERE json_extract(p.value, '$.teamPosition')='BOTTOM'
+WHERE json_extract(p.value ,'$.totalDamageDealtToChampions') IS NOT NULL
 GROUP BY name
 -- , role
 HAVING games >= 4
 ORDER BY 
-  -- cspm DESC,
-  kda DESC ,
-  gpm DESC,
-  gpm  DESC
-LIMIT 50;
+  dpm DESC,
+  kda DESC
+LIMIT 30;
 SQL
 

@@ -9,13 +9,13 @@
     "participants": [
       {
         "puuid": "",
-        "riotIdGameName": "Beetleberries",
+        "riotIdGameName": "BeetleBerries",
         "championName": "Diana",
         "teamId": 100,
         "kills": 15,
         "deaths": 3,
         "assists": 7,
-        "minionsKilled": 188,
+        "totalMinionsKilled": 188,
         "goldEarned": 15448,
         "teamPosition": "JUNGLE",
         "win": true
@@ -28,20 +28,20 @@
         "kills": 2,
         "deaths": 0,
         "assists": 11,
-        "minionsKilled": 206,
+        "totalMinionsKilled": 206,
         "goldEarned": 11645,
         "teamPosition": "TOP",
         "win": true
       },
       {
         "puuid": "",
-        "riotIdGameName": "Kayle Bot",
+        "riotIdGameName": "KayIe Bot",
         "championName": "Lux",
         "teamId": 100,
         "kills": 5,
         "deaths": 1,
         "assists": 6,
-        "minionsKilled": 208,
+        "totalMinionsKilled": 208,
         "goldEarned": 12510,
         "teamPosition": "MIDDLE",
         "win": true
@@ -54,7 +54,7 @@
         "kills": 2,
         "deaths": 1,
         "assists": 6,
-        "minionsKilled": 229,
+        "totalMinionsKilled": 229,
         "goldEarned": 12525,
         "teamPosition": "BOTTOM",
         "win": true
@@ -67,7 +67,7 @@
         "kills": 1,
         "deaths": 3,
         "assists": 13,
-        "minionsKilled": 36,
+        "totalMinionsKilled": 36,
         "goldEarned": 8553,
         "teamPosition": "UTILITY",
         "win": true
@@ -80,7 +80,7 @@
         "kills": 1,
         "deaths": 7,
         "assists": 0,
-        "minionsKilled": 197,
+        "totalMinionsKilled": 197,
         "goldEarned": 9346,
         "teamPosition": "TOP",
         "win": false
@@ -93,7 +93,7 @@
         "kills": 2,
         "deaths": 3,
         "assists": 4,
-        "minionsKilled": 10479,
+        "totalMinionsKilled": 203,
         "goldEarned": 10479,
         "teamPosition": "JUNGLE",
         "win": false
@@ -106,7 +106,7 @@
         "kills": 3,
         "deaths": 5,
         "assists": 4,
-        "minionsKilled": 273,
+        "totalMinionsKilled": 273,
         "goldEarned": 13277,
         "teamPosition": "BOTTOM",
         "win": false
@@ -119,7 +119,7 @@
         "kills": 2,
         "deaths": 6,
         "assists": 4,
-        "minionsKilled": 25,
+        "totalMinionsKilled": 25,
         "goldEarned": 7297,
         "teamPosition": "UTILITY",
         "win": false
@@ -132,7 +132,7 @@
         "kills": 0,
         "deaths": 4,
         "assists": 2,
-        "minionsKilled": 205,
+        "totalMinionsKilled": 205,
         "goldEarned": 9420,
         "teamPosition": "MIDDLE",
         "win": false
