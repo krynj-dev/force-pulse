@@ -1,15 +1,25 @@
 {
   "info": {
-    "matchId": "Unknown",
+    "gameId": 684959682,
     "gameDuration": 2766,
     "gameVersion": "15.23.728.3286",
     "teams": [
       {
-        "teamId": 100,
+        "objectives": {
+          "champion": {
+            "kills": 25
+          }
+        },
+        "teamId": 200,
         "win": false
       },
       {
-        "teamId": 200,
+        "objectives": {
+          "champion": {
+            "kills": 43
+          }
+        },
+        "teamId": 100,
         "win": true
       }
     ],
@@ -215,7 +225,7 @@
         "summonerSpell2": "4",
         "summonSpell1Cast": "5",
         "summonSpell2Cast": "5",
-        "team": "100",
+        "teamId": 200,
         "teamEarlySurrendered": "0",
         "teamObjective": "0",
         "teamPosition": "TOP",
@@ -459,7 +469,7 @@
         "summonerSpell2": "11",
         "summonSpell1Cast": "5",
         "summonSpell2Cast": "25",
-        "team": "100",
+        "teamId": 200,
         "teamEarlySurrendered": "0",
         "teamObjective": "0",
         "teamPosition": "JUNGLE",
@@ -703,7 +713,7 @@
         "summonerSpell2": "12",
         "summonSpell1Cast": "5",
         "summonSpell2Cast": "4",
-        "team": "100",
+        "teamId": 200,
         "teamEarlySurrendered": "0",
         "teamObjective": "0",
         "teamPosition": "MIDDLE",
@@ -947,7 +957,7 @@
         "summonerSpell2": "21",
         "summonSpell1Cast": "5",
         "summonSpell2Cast": "9",
-        "team": "100",
+        "teamId": 200,
         "teamEarlySurrendered": "0",
         "teamObjective": "0",
         "teamPosition": "BOTTOM",
@@ -1191,7 +1201,7 @@
         "summonerSpell2": "4",
         "summonSpell1Cast": "5",
         "summonSpell2Cast": "5",
-        "team": "100",
+        "teamId": 200,
         "teamEarlySurrendered": "0",
         "teamObjective": "0",
         "teamPosition": "UTILITY",
@@ -1435,7 +1445,7 @@
         "summonerSpell2": "4",
         "summonSpell1Cast": "3",
         "summonSpell2Cast": "2",
-        "team": "200",
+        "teamId": 100,
         "teamEarlySurrendered": "0",
         "teamObjective": "0",
         "teamPosition": "TOP",
@@ -1679,7 +1689,7 @@
         "summonerSpell2": "4",
         "summonSpell1Cast": "24",
         "summonSpell2Cast": "4",
-        "team": "200",
+        "teamId": 100,
         "teamEarlySurrendered": "0",
         "teamObjective": "0",
         "teamPosition": "JUNGLE",
@@ -1923,7 +1933,7 @@
         "summonerSpell2": "4",
         "summonSpell1Cast": "4",
         "summonSpell2Cast": "6",
-        "team": "200",
+        "teamId": 100,
         "teamEarlySurrendered": "0",
         "teamObjective": "0",
         "teamPosition": "MIDDLE",
@@ -2167,7 +2177,7 @@
         "summonerSpell2": "4",
         "summonSpell1Cast": "3",
         "summonSpell2Cast": "7",
-        "team": "200",
+        "teamId": 100,
         "teamEarlySurrendered": "0",
         "teamObjective": "0",
         "teamPosition": "BOTTOM",
@@ -2411,7 +2421,7 @@
         "summonerSpell2": "14",
         "summonSpell1Cast": "11",
         "summonSpell2Cast": "11",
-        "team": "200",
+        "teamId": 100,
         "teamEarlySurrendered": "0",
         "teamObjective": "0",
         "teamPosition": "UTILITY",

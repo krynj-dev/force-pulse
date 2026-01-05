@@ -1,6 +1,6 @@
 {
   "info": {
-    "gameId": "CUSTOM-UNKNOWN-1",
+    "gameId": 1,
     "gameMode": "CUSTOM",
     "map": "SUMMONERS_RIFT",
     "gameDuration": 2158,
@@ -8,10 +8,20 @@
     "winningTeamId": 100,
     "teams": [
       {
+        "objectives": {
+          "champion": {
+            "kills": 30
+          }
+        },
         "teamId": 100,
         "win": true
       },
       {
+        "objectives": {
+          "champion": {
+            "kills": 17
+          }
+        },
         "teamId": 200,
         "win": false
       }

@@ -1,11 +1,31 @@
 {
   "info": {
-    "gameId": "CUSTOM-UNKNOWN-12",
+    "gameId": 12,
     "gameMode": "CUSTOM",
     "map": "SUMMONERS_RIFT",
     "gameDuration": 1897,
     "gameEndDate": "2025-11-22",
     "winningTeamId": 100,
+    "teams": [
+      {
+        "objectives": {
+          "champion": {
+            "kills": 25
+          }
+        },
+        "teamId": 100,
+        "win": true
+      },
+      {
+        "objectives": {
+          "champion": {
+            "kills": 8
+          }
+        },
+        "teamId": 200,
+        "win": false
+      }
+    ],
     "participants": [
       {
         "puuid": "",

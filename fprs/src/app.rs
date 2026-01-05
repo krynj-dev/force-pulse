@@ -32,6 +32,7 @@ pub struct App {
     pub previous_screen: CurrentScreen,
     pub show_search: bool,
     pub search_input: String,
+    pub search_buf: String,
 }
 
 impl App {
@@ -41,6 +42,7 @@ impl App {
             previous_screen: CurrentScreen::Main,
             show_search: false,
             search_input: String::new(),
+            search_buf: String::new(),
         }
     }
 

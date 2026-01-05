@@ -5,6 +5,7 @@ use std::path::Path;
 use std::path::PathBuf;
 
 use rusqlite::{Connection, Result};
+use serde_json::Value;
 
 use crate::app;
 use crate::db;
@@ -132,16 +133,19 @@ fn import_manual_matches(conn: &Connection, dir: &Path) -> Result<usize> {
 
         let json = fs::read_to_string(&path).expect("Failed to read JSON file");
 
-        // Optional sanity check
-        serde_json::from_str::<serde_json::Value>(&json).expect("Invalid JSON");
+        let v: Value = serde_json::from_str(&json).expect("Invalid JSON");
 
-        // 3. Insert
+        // extract info.gameId
+        let foo = v["info"]["gameId"]
+            .as_i64()
+            .expect("info.gameId missing or not an integer");
+
         conn.execute(
             r#"
-            INSERT INTO game (data, manual)
-            VALUES (?1, 1)
+            INSERT INTO game (id, data, manual)
+            VALUES (?1, ?2, 1)
             "#,
-            [&json],
+            (foo, &json),
         )?;
 
         inserted += 1;

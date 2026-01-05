@@ -28,7 +28,7 @@ SELECT
       ( SUM(json_extract(m.data, '$.info.gameDuration')) / 60)
       -- ,0)
       AS gpm,
-      AVG(json_extract(p.value, '$.totalDamageDealtToChampions')) as damage,
+      CAST(AVG(json_extract(p.value, '$.totalDamageDealtToChampions')) AS INTEGER) as damage,
         printf('%d:%02d', AVG(json_extract(m.data, '$.info.gameDuration')) / 60, AVG(json_extract(m.data, '$.info.gameDuration')) % 60) AS game_length
 FROM game m
 JOIN json_each(m.data, '$.info.participants') p
@@ -118,44 +118,61 @@ SQL
 echo ''
 echo 'Match history'
 sqlite3 ~/.config/fprs/app.db <<SQL
+.headers on
+.mode column
 .parameter init
 .parameter set :name "$1"
 
-.headers on
-.mode column
+WITH participants AS (
+    SELECT
+        g.id AS game_id,
+        json_extract(p.value, '$.teamId') AS team_id,
+        json_extract(p.value, '$.riotIdGameName') AS player,
+        json_extract(p.value, '$.championName') AS champion,
+        json_extract(p.value, '$.teamPosition') AS role,
+        json_extract(p.value, '$.win') AS win,
+        json_extract(p.value, '$.kills') AS kills,
+        json_extract(p.value, '$.deaths') AS deaths,
+        json_extract(p.value, '$.assists') AS assists,
+        json_extract(p.value, '$.goldEarned') AS gold,
+        json_extract(p.value, '$.totalDamageDealtToChampions') AS damage,
+        json_extract(g.data, '$.info.gameDuration') AS game_duration,
+        json_extract(g.data, '$.info.gameEndTimestamp') AS game_end
+    FROM game g
+    JOIN json_each(g.data, '$.info.participants') p
+    WHERE json_extract(p.value, '$.riotIdGameName') = :name
+),
+
+team_totals AS (
+    SELECT
+        g.id AS game_id,
+        json_extract(p.value, '$.teamId') AS team_id,
+        SUM(json_extract(p.value, '$.kills')) AS team_kills
+    FROM game g
+    JOIN json_each(g.data, '$.info.participants') p
+    GROUP BY game_id, team_id
+)
 
 SELECT
-    json_extract(p.value, '$.riotIdGameName') AS player,
-    json_extract(p.value, '$.championName') AS champion,
-    json_extract(p.value, '$.teamPosition') AS role,
-    CASE
-        WHEN json_extract(p.value, '$.win') = 1 THEN 'WIN'
-        ELSE 'LOSS'
-    END AS result,
-    json_extract(p.value, '$.kills')     AS kills,
-    json_extract(p.value, '$.deaths')    AS deaths,
-    json_extract(p.value, '$.assists')   AS assists,
-    ROUND(
-        (json_extract(p.value, '$.kills') +
-         json_extract(p.value, '$.assists')) * 1.0 /
-        CASE
-            WHEN json_extract(p.value, '$.deaths') = 0 THEN 1
-            ELSE json_extract(p.value, '$.deaths')
-        END,
-        2
-    ) AS kda,
-          json_extract(p.value, '$.goldEarned') /
-      ( json_extract(m.data, '$.info.gameDuration') / 60)
-      AS gpm,
-
-      json_extract(p.value, '$.totalDamageDealtToChampions') as damage,
-      json_extract(p.value, '$.totalDamageDealtToChampions') / (json_extract(m.data, '$.info.gameDuration') / 60) as dpm,
-        printf('%d:%02d', json_extract(m.data, '$.info.gameDuration') / 60, json_extract(m.data, '$.info.gameDuration') % 60) AS game_length
-    -- json_extract(m.data, '$.info.gameEndTimestamp') as date_
-FROM game m
-JOIN json_each(m.data, '$.info.participants') p
-WHERE json_extract(p.value, '$.riotIdGameName') = :name
-ORDER BY json_extract(m.data, '$.info.gameEndTimestamp') DESC
+    player,
+    champion,
+    role,
+    CASE WHEN win=1 THEN 'WIN' ELSE 'LOSS' END AS result,
+    kills,
+    deaths,
+    assists,
+    ROUND((kills + assists) * 1.0 / CASE WHEN deaths=0 THEN 1 ELSE deaths END, 2) AS kda,
+    gold / (game_duration / 60) AS gpm,
+    damage,
+    damage / (game_duration / 60) AS dpm,
+    printf('%d:%02d', game_duration / 60, game_duration % 60) AS len,
+    t.team_kills as tk
+FROM participants p
+JOIN team_totals t
+  ON p.game_id = t.game_id
+ AND p.team_id = t.team_id
+ORDER BY game_end DESC
 LIMIT 50;
+
 SQL
 
