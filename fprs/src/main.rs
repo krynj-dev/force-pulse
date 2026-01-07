@@ -1,18 +1,11 @@
 use color_eyre::Result;
-use crossterm::event::{self, Event, KeyCode, KeyEventKind, KeyModifiers};
-use ratatui::Terminal;
-use ratatui::crossterm::event::DisableMouseCapture;
-use ratatui::crossterm::terminal::{LeaveAlternateScreen, disable_raw_mode};
-use ratatui::prelude::{Backend, CrosstermBackend};
-use ratatui::{
-    DefaultTerminal, Frame,
-    crossterm::{
-        event::EnableMouseCapture,
-        execute,
-        terminal::{EnterAlternateScreen, enable_raw_mode},
-    },
-};
+use color_eyre::eyre::Context;
+use ratatui::crossterm::event::{self, Event, KeyCode, KeyModifiers};
+use rusqlite::Connection;
 
+use std::fs;
+use std::path::PathBuf;
+use std::time::Duration;
 use std::{
     error::Error,
     io::{self, Write},
@@ -23,10 +16,15 @@ mod command;
 mod db;
 mod riot;
 mod ui;
+mod update;
 use app::{App, CurrentScreen};
-use ui::ui;
+use command::APP_NAME;
+use ui::view;
 
-fn main() {
+use crate::app::{Config, Message, config_dir};
+use crate::ui::GameList;
+
+fn old_main() {
     let mut state = command::AppState::new();
 
     loop {
@@ -50,94 +48,174 @@ fn main() {
     }
 }
 
-fn new_main() -> Result<(), Box<dyn Error>> {
-    // setup terminal
-    enable_raw_mode()?;
-    let mut stderr = io::stderr(); // This is a special case. Normally using stdout is fine
-    execute!(stderr, EnterAlternateScreen, EnableMouseCapture)?;
-    let backend = CrosstermBackend::new(stderr);
-    let mut terminal = Terminal::new(backend)?;
+fn main() -> Result<(), Box<dyn Error>> {
+    init_config()?;
+    tui::install_panic_hook();
+    let mut terminal = tui::init_terminal()?;
 
-    // create app and run it
     let mut app = App::new();
-    let res = run_app(&mut terminal, &mut app);
+    app.config = read_config()?;
+    app.db_connection = Some(init_database()?);
+    // app.game_count = db::game_count(app.db_connection.as_ref().unwrap()).unwrap_or(0);
+    app.test_game = Some(db::game_by_id(app.db_connection.as_ref().unwrap(), 1)?);
+    app.game_ids = GameList::from_iter(
+        db::all_games(app.db_connection.as_ref().unwrap()).unwrap_or(Vec::new()),
+    );
+    app.game_count = app.game_ids.len() as i64;
 
-    // restore terminal
-    disable_raw_mode()?;
-    execute!(
-        terminal.backend_mut(),
-        LeaveAlternateScreen,
-        DisableMouseCapture
-    )?;
-    terminal.show_cursor()?;
+    while app.current_screen != CurrentScreen::Quit {
+        terminal.draw(|f| view::view(f, &mut app))?;
+
+        let mut current_msg = handle_event(&app)?;
+
+        while current_msg.is_some() {
+            current_msg = update::update(&mut app, current_msg.unwrap());
+        }
+    }
+
+    tui::restore_terminal()?;
+    Ok(())
+}
+
+fn init_config() -> io::Result<PathBuf> {
+    // Create toml if not exist
+    let mut config_path = app::config_dir(APP_NAME);
+    config_path.push("config.toml");
+
+    if !config_path.exists() {
+        if let Some(parent) = config_path.parent() {
+            fs::create_dir_all(parent)?;
+        }
+
+        fs::write(
+            &config_path,
+            r#"api_key = ""
+"#,
+        )?;
+    }
+
+    Ok(config_path)
+}
+
+fn init_database() -> rusqlite::Result<Connection> {
+    let db_path = app::db_path(APP_NAME);
+    return db::init_db(&db_path);
+}
+
+fn read_config() -> Result<Config> {
+    let mut path = config_dir(APP_NAME);
+    path.push("config.toml");
+    init_config()?;
+
+    let text =
+        fs::read_to_string(&path).with_context(|| format!("failed to read {}", path.display()))?;
+
+    let cfg: Config = toml::from_str(&text).context("invalid config.toml")?;
+
+    Ok(cfg)
+}
+
+fn write_config(cfg: &Config) -> Result<()> {
+    let mut path = config_dir(APP_NAME);
+    path.push("config.toml");
+
+    let toml = toml::to_string_pretty(cfg).context("failed to serialise config")?;
+
+    if let Some(parent) = path.parent() {
+        fs::create_dir_all(parent)?;
+    }
+
+    fs::write(&path, toml).with_context(|| format!("failed to write {}", path.display()))?;
 
     Ok(())
 }
 
-fn run_app<B: Backend>(terminal: &mut Terminal<B>, app: &mut App) -> io::Result<bool> {
-    loop {
-        terminal.draw(|f| ui(f, app))?;
-
+fn handle_event(app: &App) -> color_eyre::Result<Option<Message>> {
+    if event::poll(Duration::from_millis(250))? {
         if let Event::Key(key) = event::read()? {
-            if key.kind == event::KeyEventKind::Release {
-                // Skip events that are not KeyEventKind::Press
-                continue;
-            }
-            match (key.code, key.modifiers) {
-                (KeyCode::Char('c'), KeyModifiers::CONTROL) => return Ok(true),
-                _ => {}
-            }
-            if app.show_search {
-                match key.code {
-                    KeyCode::Char(c) => {
-                        app.search_input.push(c);
-                    }
-                    KeyCode::Backspace => {
-                        app.search_input.pop();
-                    }
-                    KeyCode::Esc => {
-                        app.show_search = false;
-                        app.current_screen = app.previous_screen;
-                    }
-                    _ => {}
-                }
-                continue;
-            }
-            match app.current_screen {
-                CurrentScreen::Main => match key.code {
-                    KeyCode::Char('s') => {
-                        app.show_search = true;
-                        app.current_screen = CurrentScreen::Search;
-                    }
-                    _ => {}
-                },
-                CurrentScreen::Search if key.kind == KeyEventKind::Press => match key.code {
-                    KeyCode::Esc => {
-                        app.current_screen = CurrentScreen::Main;
-                    }
-                    _ => {}
-                },
-                _ => {}
-            }
-            match key.code {
-                KeyCode::Char('q') => {
-                    return Ok(true);
-                }
-                _ => {}
+            if key.kind == event::KeyEventKind::Press {
+                return Ok(handle_key(app, key));
             }
         }
     }
+    Ok(None)
 }
 
-fn run(mut terminal: DefaultTerminal) -> Result<()> {
-    loop {
-        terminal.draw(render)?;
-        if matches!(event::read()?, Event::Key(_)) {
-            break Ok(());
+fn handle_key(app: &App, key: event::KeyEvent) -> Option<Message> {
+    // Above ALL else, if CTRL-c is pressed, quit the program
+    match (key.code, key.modifiers) {
+        (KeyCode::Char('c'), KeyModifiers::CONTROL) => {
+            return Some(Message::Quit);
         }
+        _ => {}
+    }
+    // If the input floater is displaying, absorb all keys
+    if app.show_input {
+        match key.code {
+            KeyCode::Esc => return Some(Message::InputCancelled),
+            KeyCode::Enter => return Some(Message::InputFinished),
+            _ => {
+                return Some(Message::InputKey(Event::Key(key)));
+            }
+        }
+    }
+    // Global key strokes
+    match key.code {
+        KeyCode::Char('q') => {
+            return Some(Message::Quit);
+        }
+        _ => {}
+    }
+    // Screen-specific strokes
+    match app.current_screen {
+        CurrentScreen::Main | CurrentScreen::Start => match key.code {
+            KeyCode::Char('i') => Some(Message::OpenImportManual),
+            KeyCode::Char('j') | KeyCode::Down => Some(Message::ListDown),
+            KeyCode::Char('k') | KeyCode::Up => Some(Message::ListUp),
+            KeyCode::Char('J') | KeyCode::End => Some(Message::ListEnd),
+            KeyCode::Char('K') | KeyCode::Home => Some(Message::ListStart),
+            _ => None,
+        },
+        CurrentScreen::ImportManual => match key.code {
+            KeyCode::Esc => Some(Message::OpenMain),
+            _ => None,
+        },
+        _ => None,
     }
 }
 
-fn render(frame: &mut Frame) {
-    frame.render_widget("hello world", frame.area());
+mod tui {
+    use ratatui::{
+        Terminal,
+        backend::{Backend, CrosstermBackend},
+        crossterm::{
+            ExecutableCommand,
+            terminal::{
+                EnterAlternateScreen, LeaveAlternateScreen, disable_raw_mode, enable_raw_mode,
+            },
+        },
+    };
+    use std::{io::stdout, panic};
+
+    pub fn init_terminal() -> color_eyre::Result<Terminal<impl Backend>> {
+        enable_raw_mode()?;
+        stdout().execute(EnterAlternateScreen)?;
+        let terminal = Terminal::new(CrosstermBackend::new(stdout()))?;
+        Ok(terminal)
+    }
+
+    pub fn restore_terminal() -> color_eyre::Result<()> {
+        stdout().execute(LeaveAlternateScreen)?;
+        disable_raw_mode()?;
+        Ok(())
+    }
+
+    pub fn install_panic_hook() {
+        let original_hook = panic::take_hook();
+        panic::set_hook(Box::new(move |panic_info| {
+            stdout().execute(LeaveAlternateScreen).unwrap();
+            disable_raw_mode().unwrap();
+            original_hook(panic_info);
+        }));
+    }
 }

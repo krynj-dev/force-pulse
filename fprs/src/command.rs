@@ -11,7 +11,7 @@ use crate::app;
 use crate::db;
 use crate::riot;
 
-const APP_NAME: &str = "fprs";
+pub const APP_NAME: &str = "fprs";
 
 pub struct AppState {
     pub api_key: Option<String>,
@@ -114,7 +114,7 @@ fn fetch(state: &mut AppState, conn: &Connection) {
     }
 }
 
-fn import_manual_matches(conn: &Connection, dir: &Path) -> Result<usize> {
+pub fn import_manual_matches(conn: &Connection, dir: &Path) -> Result<usize> {
     conn.execute("DELETE FROM game WHERE manual = 1", [])?;
 
     let mut inserted = 0;

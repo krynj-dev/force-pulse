@@ -1,12 +1,11 @@
-use ratatui::{
-    buffer::Buffer,
-    layout::Rect,
-    style::Stylize,
-    symbols::border,
-    text::{Line, Text},
-    widgets::{Block, Paragraph, Widget},
-};
-use std::path::PathBuf;
+use ratatui::{crossterm::event::Event, widgets::ListState};
+use rusqlite::Connection;
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+use std::{default, path::PathBuf};
+use tui_input::Input;
+
+use crate::ui::view::GameList;
 
 pub fn config_dir(app_name: &str) -> PathBuf {
     let mut dir = dirs::config_dir().expect("Could not determine config directory");
@@ -21,18 +20,42 @@ pub fn db_path(app_name: &str) -> PathBuf {
     path
 }
 
-#[derive(Copy, Clone)]
+#[derive(Debug, Deserialize, Serialize, Default)]
+pub struct Config {
+    #[serde(default)]
+    api_key: String,
+}
+
+#[derive(Copy, Clone, PartialEq)]
 pub enum CurrentScreen {
+    Start,
     Main,
+    ImportManual,
     Search,
+    Quit,
 }
 
 pub struct App {
     pub current_screen: CurrentScreen,
     pub previous_screen: CurrentScreen,
-    pub show_search: bool,
-    pub search_input: String,
-    pub search_buf: String,
+    pub next_screen: CurrentScreen,
+    // Input controls
+    pub show_input: bool,
+    pub input_title: String,
+    pub input: Input,
+    pub messages: Vec<String>,
+    pub post_message: Option<Message>,
+    // Config
+    pub config: Config,
+    // Import stuff
+    pub import_message: String,
+    pub imported_games: Vec<String>,
+    // Data stuff
+    pub startup: bool,
+    pub game_count: i64,
+    pub db_connection: Option<Connection>,
+    pub test_game: Option<Value>,
+    pub game_ids: GameList,
 }
 
 impl App {
@@ -40,83 +63,38 @@ impl App {
         App {
             current_screen: CurrentScreen::Main,
             previous_screen: CurrentScreen::Main,
-            show_search: false,
-            search_input: String::new(),
-            search_buf: String::new(),
+            next_screen: CurrentScreen::Main,
+            show_input: false,
+            input_title: String::new(),
+            messages: Vec::new(),
+            input: Input::new("".to_string()),
+            post_message: None,
+            config: Config::default(),
+            import_message: String::new(),
+            imported_games: Vec::new(),
+            db_connection: None,
+            startup: true,
+            game_count: 0,
+            test_game: None,
+            game_ids: GameList::default(),
         }
     }
-
-    // pub fn run(&mut self, terminal: &mut DefaultTerminal) -> io::Result<()> {
-    //     while !self.exit {
-    //         terminal.draw(|frame| self.draw(frame))?;
-    //         self.handle_events()?;
-    //     }
-    //     Ok(())
-    // }
-    //
-    // fn draw(&self, frame: &mut Frame) {
-    //     frame.render_widget(self, frame.area());
-    // }
-    //
-    // fn handle_events(&mut self) -> io::Result<()> {
-    //     match event::read()? {
-    //         // it's important to check that the event is a key press event as
-    //         // crossterm also emits key release and repeat events on Windows.
-    //         Event::Key(key_event) if key_event.kind == KeyEventKind::Press => {
-    //             self.handle_key_event(key_event)
-    //         }
-    //         _ => {}
-    //     };
-    //     Ok(())
-    // }
-    //
-    // fn handle_key_event(&mut self, key_event: KeyEvent) {
-    //     match key_event.code {
-    //         KeyCode::Char('q') => self.exit(),
-    //         KeyCode::Left => self.decrement_counter(),
-    //         KeyCode::Right => self.increment_counter(),
-    //         _ => {}
-    //     }
-    // }
-    //
-    // fn exit(&mut self) {
-    //     self.exit = true;
-    // }
-    //
-    // fn increment_counter(&mut self) {
-    //     self.counter += 1;
-    // }
-    //
-    // fn decrement_counter(&mut self) {
-    //     self.counter -= 1;
-    // }
 }
 
-// impl Widget for &App {
-//     fn render(self, area: Rect, buf: &mut Buffer) {
-//         let line = Line::from(" Counter App Tutorial ".bold());
-//         let title = line;
-//         let instructions = Line::from(vec![
-//             " Decrement ".into(),
-//             "<Left>".blue().bold(),
-//             " Increment ".into(),
-//             "<Right>".blue().bold(),
-//             " Quit ".into(),
-//             "<Q> ".blue().bold(),
-//         ]);
-//         let block = Block::bordered()
-//             .title(title.centered())
-//             .title_bottom(instructions.centered())
-//             .border_set(border::THICK);
-//
-//         let counter_text = Text::from(vec![Line::from(vec![
-//             "Value: ".into(),
-//             self.counter.to_string().yellow(),
-//         ])]);
-//
-//         Paragraph::new(counter_text)
-//             .centered()
-//             .block(block)
-//             .render(area, buf);
-//     }
-// }
+#[derive(PartialEq, Clone)]
+pub enum Message {
+    LoadGameCount,
+    StartUp,
+    InputKey(Event),
+    Quit,
+    OpenImportManual,
+    OpenMain,
+    PromptInput,
+    InputFinished,
+    InputCancelled,
+    DoImportManual,
+    ListDown,
+    ListUp,
+    ListEnd,
+    ListStart,
+}
