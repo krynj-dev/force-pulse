@@ -455,14 +455,16 @@ dependencies = [
  "color-eyre",
  "crossterm 0.29.0",
  "dirs",
+ "pad",
  "ratatui",
  "reqwest",
  "rusqlite",
  "serde",
  "serde_json",
+ "strum",
  "toml",
  "tui-input",
- "unicode-width 0.1.14",
+ "unicode-width 0.2.0",
 ]
 
 [[package]]
@@ -1144,6 +1146,15 @@ name = "owo-colors"
 version = "4.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9c6901729fa79e91a0913333229e9ca5dc725089d1c363b2f4b4760709dc4a52"
+
+[[package]]
+name = "pad"
+version = "0.1.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d2ad9b889f1b12e0b9ee24db044b5129150d5eada288edc800f789928dc8c0e3"
+dependencies = [
+ "unicode-width 0.1.14",
+]
 
 [[package]]
 name = "parking_lot"

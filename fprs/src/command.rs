@@ -8,8 +8,8 @@ use rusqlite::{Connection, Result};
 use serde_json::Value;
 
 use crate::app;
-use crate::db;
 use crate::riot;
+use crate::sql::repo;
 
 pub const APP_NAME: &str = "fprs";
 
@@ -47,7 +47,7 @@ pub fn handle_command(cmd: &str, state: &mut AppState) -> Result<()> {
             let conn = Connection::open(db_path)?;
             fetch(state, &conn);
         }
-        "init" => match db::init_db(&db_path) {
+        "init" => match repo::init_db(&db_path) {
             Ok(_) => println!("Initialised database at {}", db_path.display()),
             Err(e) => eprintln!("Init failed: {}", e),
         },
@@ -104,7 +104,7 @@ fn fetch(state: &mut AppState, conn: &Connection) {
     match riot::fetch_match(&api_key, region, &game_id) {
         Ok(json) => {
             println!("Result: {}", json);
-            if let Err(e) = db::insert_game(conn, &match_id, &json) {
+            if let Err(e) = repo::insert_game(conn, &match_id, &json) {
                 eprintln!("Failed to store game: {e}");
             } else {
                 println!("Game retrieved!");
@@ -115,7 +115,7 @@ fn fetch(state: &mut AppState, conn: &Connection) {
 }
 
 pub fn import_manual_matches(conn: &Connection, dir: &Path) -> Result<usize> {
-    conn.execute("DELETE FROM game WHERE manual = 1", [])?;
+    // conn.execute("DELETE FROM game WHERE manual = 1", [])?;
 
     let mut inserted = 0;
 
@@ -144,6 +144,9 @@ pub fn import_manual_matches(conn: &Connection, dir: &Path) -> Result<usize> {
             r#"
             INSERT INTO game (id, data, manual)
             VALUES (?1, ?2, 1)
+            ON CONFLICT(id) DO UPDATE
+            SET
+                data = excluded.data;
             "#,
             (foo, &json),
         )?;

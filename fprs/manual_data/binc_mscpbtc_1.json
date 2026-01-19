@@ -1,0 +1,162 @@
+{
+  "info": {
+    "gameId": 14,
+    "gameMode": "CUSTOM",
+    "map": "SUMMONERS_RIFT",
+    "gameDuration": 1995,
+    "gameEndDate": "2026-01-17",
+    "winningTeamId": 200,
+    "teams": [
+      {
+        "objectives": {
+          "champion": {
+            "kills": 21
+          }
+        },
+        "teamId": 100,
+        "win": false
+      },
+      {
+        "objectives": {
+          "champion": {
+            "kills": 34
+          }
+        },
+        "teamId": 200,
+        "win": true
+      }
+    ],
+    "participants": [
+      {
+        "puuid": "",
+        "riotIdGameName": "MeSaysNo",
+        "championName": "Urgot",
+        "teamId": 100,
+        "kills": 5,
+        "deaths": 10,
+        "assists": 4,
+        "totalMinionsKilled": 257,
+        "goldEarned": 12470,
+        "teamPosition": "TOP",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "GuacamoleGary",
+        "championName": "Graves",
+        "teamId": 100,
+        "kills": 13,
+        "deaths": 6,
+        "assists": 6,
+        "totalMinionsKilled": 300,
+        "goldEarned": 19550,
+        "teamPosition": "JUNGLE",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Stygian",
+        "championName": "Viktor",
+        "teamId": 100,
+        "kills": 1,
+        "deaths": 6,
+        "assists": 7,
+        "totalMinionsKilled": 234,
+        "goldEarned": 10200,
+        "teamPosition": "MIDDLE",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Doggo",
+        "championName": "Corki",
+        "teamId": 100,
+        "kills": 2,
+        "deaths": 6,
+        "assists": 11,
+        "totalMinionsKilled": 283,
+        "goldEarned": 14687,
+        "teamPosition": "BOTTOM",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "banana",
+        "championName": "Rakan",
+        "teamId": 100,
+        "kills": 0,
+        "deaths": 6,
+        "assists": 16,
+        "totalMinionsKilled": 29,
+        "goldEarned": 8095,
+        "teamPosition": "UTILITY",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Scissor Sisters",
+        "championName": "Renekton",
+        "teamId": 200,
+        "kills": 5,
+        "deaths": 7,
+        "assists": 8,
+        "totalMinionsKilled": 204,
+        "goldEarned": 13452,
+        "teamPosition": "TOP",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "stop playing god",
+        "championName": "Warwick",
+        "teamId": 200,
+        "kills": 6,
+        "deaths": 4,
+        "assists": 14,
+        "totalMinionsKilled": 194,
+        "goldEarned": 14024,
+        "teamPosition": "JUNGLE",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "K1wilion",
+        "championName": "Akali",
+        "teamId": 200,
+        "kills": 14,
+        "deaths": 4,
+        "assists": 5,
+        "totalMinionsKilled": 239,
+        "goldEarned": 15441,
+        "teamPosition": "MIDDLE",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Ellezmera",
+        "championName": "Smolder",
+        "teamId": 200,
+        "kills": 9,
+        "deaths": 2,
+        "assists": 13,
+        "totalMinionsKilled": 349,
+        "goldEarned": 19506,
+        "teamPosition": "BOTTOM",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "raspberry",
+        "championName": "Milio",
+        "teamId": 200,
+        "kills": 0,
+        "deaths": 4,
+        "assists": 23,
+        "totalMinionsKilled": 22,
+        "goldEarned": 9667,
+        "teamPosition": "UTILITY",
+        "win": true
+      }
+    ]
+  }
+}

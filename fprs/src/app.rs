@@ -1,11 +1,18 @@
-use ratatui::{crossterm::event::Event, widgets::ListState};
+use ratatui::{
+    crossterm::event::Event,
+    widgets::{ListState, TableState},
+};
 use rusqlite::Connection;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::{default, path::PathBuf};
+use std::{collections::HashMap, default, path::PathBuf};
+use strum::{Display, EnumIter, FromRepr};
 use tui_input::Input;
 
-use crate::ui::view::GameList;
+use crate::{
+    sql::schema::{ChampionHistory, ChampionStats, OverallStats, PlayerDeepStats, PlayerStats},
+    ui::view::GameList,
+};
 
 pub fn config_dir(app_name: &str) -> PathBuf {
     let mut dir = dirs::config_dir().expect("Could not determine config directory");
@@ -32,13 +39,60 @@ pub enum CurrentScreen {
     Main,
     ImportManual,
     Search,
+    Stats,
     Quit,
+}
+
+#[derive(Copy, Clone, PartialEq, Default, Display, FromRepr, EnumIter)]
+pub enum StatsTab {
+    #[default]
+    #[strum(to_string = "Game stats")]
+    Game,
+    #[strum(to_string = "Player stats")]
+    Player,
+    #[strum(to_string = "Team stats")]
+    Team,
+    #[strum(to_string = "Champion stats")]
+    Champion,
+}
+
+impl StatsTab {
+    /// Get the previous tab, if there is no previous tab return the current tab.
+    fn previous(self) -> Self {
+        let current_index: usize = self as usize;
+        let previous_index = current_index.saturating_sub(1);
+        Self::from_repr(previous_index).unwrap_or(self)
+    }
+
+    /// Get the next tab, if there is no next tab return the current tab.
+    fn next(self) -> Self {
+        let current_index = self as usize;
+        let next_index = current_index.saturating_add(1);
+        Self::from_repr(next_index).unwrap_or(self)
+    }
+
+    pub fn title(self) -> String {
+        format!("  {self}  ")
+    }
+}
+
+#[derive(Copy, Clone, PartialEq, Default)]
+pub enum AlertType {
+    #[default]
+    None,
+    Warning,
+    Error,
+    Success,
 }
 
 pub struct App {
     pub current_screen: CurrentScreen,
     pub previous_screen: CurrentScreen,
     pub next_screen: CurrentScreen,
+    // Alert controls
+    pub show_alert: bool,
+    pub alert_type: AlertType,
+    pub alert_message: String,
     // Input controls
     pub show_input: bool,
     pub input_title: String,
@@ -55,7 +109,24 @@ pub struct App {
     pub game_count: i64,
     pub db_connection: Option<Connection>,
     pub test_game: Option<Value>,
-    pub game_ids: GameList,
+    pub db_games: GameList,
+    pub search_games: GameList,
+    // Stats stuff
+    pub stats_tab: StatsTab,
+    pub overall_stats: OverallStats,
+    pub players_stats: Vec<PlayerStats>,
+    pub players_table_state: TableState,
+    pub players_sort_col: u64,
+    pub players_sort_dir: i64,
+    pub players_role_filter: u64,
+    // player depth stats
+    pub player_deep_stats: PlayerDeepStats,
+    // team stats
+    // champ stats
+    pub all_champs_stats: Vec<ChampionStats>,
+    pub all_champs_state: TableState,
+    pub champs_history: HashMap<String, Vec<ChampionHistory>>,
+    pub champs_sort_dir: i64,
 }
 
 impl App {
@@ -76,8 +147,35 @@ impl App {
             startup: true,
             game_count: 0,
             test_game: None,
-            game_ids: GameList::default(),
+            db_games: GameList::default(),
+            search_games: GameList::default(),
+            show_alert: false,
+            alert_type: AlertType::default(),
+            alert_message: String::new(),
+            overall_stats: OverallStats::default(),
+            players_stats: Vec::new(),
+            players_table_state: TableState::default(),
+            players_sort_col: 0,
+            players_sort_dir: -1,
+            players_role_filter: 0,
+            player_deep_stats: PlayerDeepStats::default(),
+            stats_tab: StatsTab::default(),
+            all_champs_stats: Vec::new(),
+            all_champs_state: TableState::default(),
+            champs_history: HashMap::default(),
+            champs_sort_dir: -1,
         }
+    }
+
+    pub fn get_config_api_key(&self) -> &str {
+        return &self.config.api_key;
+    }
+
+    pub fn next_stats_tab(&mut self) {
+        self.stats_tab = self.stats_tab.next();
+    }
+    pub fn previous_stats_tab(&mut self) {
+        self.stats_tab = self.stats_tab.previous();
     }
 }
 
@@ -97,4 +195,18 @@ pub enum Message {
     ListUp,
     ListEnd,
     ListStart,
+    ListLeft,
+    ListRight,
+    OpenSearch,
+    DoSearch,
+    AddSearchGame,
+    ReloadDatabaseGames,
+    OpenAlert,
+    CloseAlert,
+    OpenStats,
+    AddSearchTeam1,
+    AddSearchTeam2,
+    RemoveGame,
+    NextTab,
+    PrevTab,
 }

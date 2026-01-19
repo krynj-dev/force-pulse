@@ -1,0 +1,162 @@
+{
+  "info": {
+    "gameId": 15,
+    "gameMode": "CUSTOM",
+    "map": "SUMMONERS_RIFT",
+    "gameDuration": 1609,
+    "gameEndDate": "2026-01-17",
+    "winningTeamId": 100,
+    "teams": [
+      {
+        "objectives": {
+          "champion": {
+            "kills": 26
+          }
+        },
+        "teamId": 100,
+        "win": true
+      },
+      {
+        "objectives": {
+          "champion": {
+            "kills": 13
+          }
+        },
+        "teamId": 200,
+        "win": false
+      }
+    ],
+    "participants": [
+      {
+        "puuid": "",
+        "riotIdGameName": "MeSaysNo",
+        "championName": "DrMundo",
+        "teamId": 100,
+        "kills": 4,
+        "deaths": 3,
+        "assists": 8,
+        "totalMinionsKilled": 203,
+        "goldEarned": 11137,
+        "teamPosition": "TOP",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "GuacamoleGary",
+        "championName": "Belveth",
+        "teamId": 100,
+        "kills": 12,
+        "deaths": 1,
+        "assists": 10,
+        "totalMinionsKilled": 241,
+        "goldEarned": 15966,
+        "teamPosition": "JUNGLE",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Stygian",
+        "championName": "Aurora",
+        "teamId": 100,
+        "kills": 5,
+        "deaths": 2,
+        "assists": 5,
+        "totalMinionsKilled": 200,
+        "goldEarned": 10668,
+        "teamPosition": "MIDDLE",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Doggo",
+        "championName": "Ashe",
+        "teamId": 100,
+        "kills": 4,
+        "deaths": 5,
+        "assists": 10,
+        "totalMinionsKilled": 193,
+        "goldEarned": 11753,
+        "teamPosition": "BOTTOM",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "banana",
+        "championName": "Seraphine",
+        "teamId": 100,
+        "kills": 1,
+        "deaths": 2,
+        "assists": 11,
+        "totalMinionsKilled": 26,
+        "goldEarned": 7534,
+        "teamPosition": "UTILITY",
+        "win": true
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Scissor Sisters",
+        "championName": "Sett",
+        "teamId": 200,
+        "kills": 3,
+        "deaths": 5,
+        "assists": 1,
+        "totalMinionsKilled": 173,
+        "goldEarned": 8615,
+        "teamPosition": "TOP",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "stop playing god",
+        "championName": "Nocturne",
+        "teamId": 200,
+        "kills": 6,
+        "deaths": 7,
+        "assists": 2,
+        "totalMinionsKilled": 167,
+        "goldEarned": 10198,
+        "teamPosition": "JUNGLE",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "K1wilion",
+        "championName": "Orianna",
+        "teamId": 200,
+        "kills": 2,
+        "deaths": 5,
+        "assists": 3,
+        "totalMinionsKilled": 218,
+        "goldEarned": 10169,
+        "teamPosition": "MIDDLE",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "Ellezmera",
+        "championName": "Sivir",
+        "teamId": 200,
+        "kills": 2,
+        "deaths": 3,
+        "assists": 3,
+        "totalMinionsKilled": 247,
+        "goldEarned": 12287,
+        "teamPosition": "BOTTOM",
+        "win": false
+      },
+      {
+        "puuid": "",
+        "riotIdGameName": "raspberry",
+        "championName": "Lulu",
+        "teamId": 200,
+        "kills": 0,
+        "deaths": 6,
+        "assists": 8,
+        "totalMinionsKilled": 25,
+        "goldEarned": 6542,
+        "teamPosition": "UTILITY",
+        "win": false
+      }
+    ]
+  }
+}

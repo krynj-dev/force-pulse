@@ -13,15 +13,16 @@ use std::{
 
 mod app;
 mod command;
-mod db;
 mod riot;
+mod sql;
 mod ui;
 mod update;
 use app::{App, CurrentScreen};
 use command::APP_NAME;
+use sql::repo;
 use ui::view;
 
-use crate::app::{Config, Message, config_dir};
+use crate::app::{AlertType, Config, Message, config_dir};
 use crate::ui::GameList;
 
 fn old_main() {
@@ -56,12 +57,19 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut app = App::new();
     app.config = read_config()?;
     app.db_connection = Some(init_database()?);
-    // app.game_count = db::game_count(app.db_connection.as_ref().unwrap()).unwrap_or(0);
-    app.test_game = Some(db::game_by_id(app.db_connection.as_ref().unwrap(), 1)?);
-    app.game_ids = GameList::from_iter(
-        db::all_games(app.db_connection.as_ref().unwrap()).unwrap_or(Vec::new()),
-    );
-    app.game_count = app.game_ids.len() as i64;
+    // app.game_count = repo::game_count(app.db_connection.as_ref().unwrap()).unwrap_or(0);
+    app.test_game = Some(repo::game_by_id(app.db_connection.as_ref().unwrap(), 1)?);
+    match repo::all_games(app.db_connection.as_ref().unwrap()) {
+        Ok(games) => {
+            app.db_games = GameList::from_iter(games);
+        }
+        Err(e) => {
+            app.alert_type = AlertType::Error;
+            app.alert_message = format!("{e}");
+            app.show_alert = true;
+        }
+    }
+    app.game_count = app.db_games.len() as i64;
 
     while app.current_screen != CurrentScreen::Quit {
         terminal.draw(|f| view::view(f, &mut app))?;
@@ -99,7 +107,7 @@ fn init_config() -> io::Result<PathBuf> {
 
 fn init_database() -> rusqlite::Result<Connection> {
     let db_path = app::db_path(APP_NAME);
-    return db::init_db(&db_path);
+    return repo::init_db(&db_path);
 }
 
 fn read_config() -> Result<Config> {
@@ -149,7 +157,11 @@ fn handle_key(app: &App, key: event::KeyEvent) -> Option<Message> {
         }
         _ => {}
     }
-    // If the input floater is displaying, absorb all keys
+    // If the result floater is displaying, absorb all keys
+    if app.show_alert {
+        return Some(Message::CloseAlert);
+    }
+    // Then if the input floater is displaying, absorb all keys
     if app.show_input {
         match key.code {
             KeyCode::Esc => return Some(Message::InputCancelled),
@@ -164,19 +176,35 @@ fn handle_key(app: &App, key: event::KeyEvent) -> Option<Message> {
         KeyCode::Char('q') => {
             return Some(Message::Quit);
         }
+        KeyCode::Char('j') | KeyCode::Down => return Some(Message::ListDown),
+        KeyCode::Char('k') | KeyCode::Up => return Some(Message::ListUp),
+        KeyCode::Char('J') | KeyCode::End => return Some(Message::ListEnd),
+        KeyCode::Char('K') | KeyCode::Home => return Some(Message::ListStart),
+        KeyCode::Char('h') | KeyCode::Left => return Some(Message::ListLeft),
+        KeyCode::Char('l') | KeyCode::Right => return Some(Message::ListRight),
         _ => {}
     }
     // Screen-specific strokes
     match app.current_screen {
         CurrentScreen::Main | CurrentScreen::Start => match key.code {
+            KeyCode::Delete => Some(Message::RemoveGame),
             KeyCode::Char('i') => Some(Message::OpenImportManual),
-            KeyCode::Char('j') | KeyCode::Down => Some(Message::ListDown),
-            KeyCode::Char('k') | KeyCode::Up => Some(Message::ListUp),
-            KeyCode::Char('J') | KeyCode::End => Some(Message::ListEnd),
-            KeyCode::Char('K') | KeyCode::Home => Some(Message::ListStart),
+            KeyCode::Char('f') => Some(Message::OpenSearch),
+            KeyCode::Char('s') => Some(Message::OpenStats),
             _ => None,
         },
         CurrentScreen::ImportManual => match key.code {
+            KeyCode::Esc => Some(Message::OpenMain),
+            _ => None,
+        },
+        CurrentScreen::Stats => match key.code {
+            KeyCode::Esc => Some(Message::OpenMain),
+            KeyCode::Char('[') => Some(Message::PrevTab),
+            KeyCode::Char(']') => Some(Message::NextTab),
+            _ => Some(Message::InputKey(Event::Key(key))),
+        },
+        CurrentScreen::Search => match key.code {
+            KeyCode::Enter => Some(Message::AddSearchGame),
             KeyCode::Esc => Some(Message::OpenMain),
             _ => None,
         },
